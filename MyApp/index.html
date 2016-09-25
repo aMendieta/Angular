@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body ng-app='app'>
+
+    <div ng-controller="ListCtrl as listCtrl">
+     orderby={{listCtrl.orderBy }}
+     <button type="button" ng-click="listCtrl.filter={}">Reset</button>
+        <table>
+            <thead>
+                <tr>
+                    <th ng-click="listCtrl.orderBy === 'name'? listCtrl.orderBy = '-name':listCtrl.orderBy = 'name'">Name</th>
+                    <th ng-click="listCtrl.orderBy === 'type'? listCtrl.orderBy = '-type':listCtrl.orderBy = 'type'">Type</th>
+                    <th ng-click="listCtrl.orderBy === 'age'? listCtrl.orderBy = '-age':listCtrl.orderBy = 'age'">Age</th>
+                    <th ng-click="listCtrl.orderBy === 'name'? listCtrl.orderBy = '-name':listCtrl.orderBy = 'name'">Actions</th>
+                </tr>
+
+                <tr>
+                    <th> <input type="text" ng-model="listCtrl.filter.name"></th>
+                    <th>
+                        <select ng-model="listCtrl.filter.type" ng-options="type as type for type in listCtrl.types"> 
+                        </select>
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr ng-repeat="animal in listCtrl.animals | filter:listCtrl.filter |orderBy : listCtrl.orderBy | limitTo:listCtrl.itemsPerPage:listCtrl.selectePage*listCtrl.itemsPerPage as filterList" ng-class="{odd: $odd, even: $even}">
+                    <td>{{animal.name}}</td>
+                    <td>{{animal.type}}</td>
+                    <td>{{animal.age}}</td>
+                   <th ><pre>{{animal | json}}</th>
+                </tr>
+            </tbody>
+
+        </table>
+            <ul>
+                <li ng-repeat="item in listCtrl.animals 
+                | filter:listCtrl.filter 
+                | pagination:listCtrl.itemsPerPage">
+                <a href="#" ng-click="listCtrl.selectePage=item">{{item+1}}</a> 
+                </li>
+            </ul>
+            <select ng-model="listCtrl.itemsPerPage" ng-options="item as item for item in [2,3,6]" ng-change="listCtrl.itemsPerPage=0"></select>
+    </div>
+
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script-->
+    <script type ="text/javascript" src="angular.min.js"></script>
+    <script type ="text/javascript" src="main.js"></script>
+</body>
+</html>

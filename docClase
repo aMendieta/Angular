@@ -1,0 +1,121 @@
+* Usamos as ctrl y this, scope apenas se usa
+* se puede tener un scope dentro de otro scope, es decir, un controlador dentro de otro controlador
+Los scope anidados complican porque usan campos declarados en los scope exteriores y se hace dificil depurar.
+$rootScope es el padre de todos los scope.
+rootScope es accesible desde todos los objetos. Todo depende de él directamente.
+El DOM no deja una doble relación parent-chld, child-parent. La doble dependencia MVVM es dentro de un mismo scope.
+No guardar todo en el scope, el scope es la referencia no el modelo.
+Las llaves se utilizan por ejemplo en internalización, se evaluan una vez, se pinta en inglés y ya no cambia.
+
+Directiva ng-app esto le dice al DOM que apartir de ahí es una aplicación Angular.
+Una aplicación por web.
+Un modulo se puede componer de más modulos, se los pasas en []. 
+module("nombreModulo", [modulos dependencias])
+
+*--------------------------------*
+*           Mirar en casa        *
+*--------------------------------*
+- Grunt-ng-annotate
+- Select2
+- javascript valores truly, falsy
+- UI GRID info tabla paginar(AngularUI)
+- DS6 clases
+- revealing module (javascript Design Patterns)
+slack
+*--------------------------------*
+
+Procurar no usar JQuery con Angular, angular proporciona y JQLite.
+
+$watch es algo muy avanzado en angular y que penaliza el rendimiento ejemplo si jquery modifica una variable que no está en el scope de angular con $watch le fuerzas a actualizar y viceversa pero te metes en un ciclo muy pesado.
+
+
+DIRECTIVAS-ANGULAR
+
+ng-model lo que hace es enlazar bindar una variable del scope al input de html, sirve no solo para
+	input sino para casi todo.
+
+ng-value es el value de los tag, input etc si quisieramos meterlos como algo que viene de un controller
+	ng-value="childCtrl.nyvalue"
+
+ng-show mostrar o no mostrar vale para cualquier elemento anivel de DOM hay diferencias con ng-if, este 	cuando el elemento no se tiene que mostrar lo elimina, el show sólo lo oculta con la clase css el 		otro lo borra del DOM.
+
+ng-src para solucionar problema de que el src de html da un error al intentar resolver una url que le 		llega de angular. Existe otro parecido.
+
+ng-click para bindar una accion de la vista a un método del controlador. En javascript los parametros 		Objetos se pasan por referencia mientras que los tipos primitivos se pasan por valor(no se pueden 		modificar)
+
+ng-class le podemos pasar un objeto ng-class ="{par: ctrl.name.lenght % 2 === 0}" si es par mete 			la clase par. Si necesitas guión bajo pones entre comillas js no admite claves con guiones. tiene
+	dos usos más.
+
+ng-repeat en cada iteración te da el indice del elemento que estas iterando en ese momento.$odd impar
+	$even par, $index indice de la iteración.
+	con esto metes el pijama ng-class="{odd: $odd, even: $even}"
+
+ng-options="type as type in listCtrl.types"> valor que guardp como valor que ve el usaurio de la lista
+
+Como haria un reset filter?? pones un boton con un ng-click que que ponga listctrl.filter={}" objeto vacio no null
+Si hay pocos datos podemos filtrar en la tabla sino que venga filtrado del backend
+
+Paginar con limit-to lo pones al final de los filtros. Hacemos un filtro para saber el numero de paginas que hay.
+Tener en cuenta los filters para paginar se apliva el filtrado a la lista
+
+*-------------------------------------------*
+				SERVICES
+*-------------------------------------------*
+
+
+FACTORIAS
+----------
+Las factorias son singleton están disponibles para cualquiera.
+
+Prototype:
+	
+	Con protoype lo declaras como método de la clase, sin protoype sería un método static, serían todos publicos. Protoype no permite métodos privados.
+
+app.factory
+
+Con los factory obtengo la funcionalidad de esa clase sin tener que implementarla en mi clase.
+
+Ojo cpn inyectar factorias mutuamente, crearias un ciclo.
+
+
+SERVICE
+--------
+	revealing mode
+
+PROVIDER(utiliza revealing mode + prototype)
+---------
+	Un provider es como un factory pero que se puede configurar.
+	Son los unicos que se pueden inyectar en la fase de configuración poniendole sufijo provider por ejemplo RoleProviderProvider. Se utiliza para configurar en la etapa run.
+	Siempre tiene que haber una funcion get es lo que va a inyectar.
+
+VALUE es una variable global, luego lo inyectas y ya está.
+
+CONSTANT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
